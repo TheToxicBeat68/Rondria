@@ -134,6 +134,34 @@
     align-items: flex-start;
     margin-bottom: 2rem;
   }
+  .name-field{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+  }
+  .name-field label{
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .name-field input{
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line-strong);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.3rem;
+    text-align: right;
+    padding: 2px 4px;
+    min-width: 220px;
+  }
+  .name-field input::placeholder{ color: var(--ink-faint); font-style: italic; }
+  .name-field input:focus{ outline: none; border-bottom-color: var(--rubric); }
   .sheet-head .eyebrow{
     font-family: var(--font-mono);
     font-size: 0.68rem;
@@ -229,6 +257,12 @@
   .lined:focus{ outline:none; }
 
   .werte-list{ display:flex; flex-direction:column; gap: 0.55rem; }
+  .werte-hint{
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    margin-bottom: 0.8rem;
+  }
   .werte-row{
     display:flex;
     align-items:baseline;
@@ -364,6 +398,7 @@
     pointer-events: none;
   }
   .wheel-axislabel{ fill: var(--ink); font-family: var(--font-display); font-size: 13px; font-weight: 500; }
+  .wheel-sublabel{ fill: var(--ink-dim); font-family: var(--font-mono); font-size: 10px; dominant-baseline: central; paint-order: stroke; stroke: var(--paper-2); stroke-width: 5px; stroke-linejoin: round; }
   .wheel-plot-fill{ fill: var(--rubric); fill-opacity: 0.16; stroke: var(--rubric); stroke-width: 2; stroke-linejoin: round; transition: all 0.15s; }
   .wheel-plot-dot{ fill: var(--rubric); stroke: var(--paper-2); stroke-width: 1.5; }
   .wheel-plot-label{ fill: var(--rubric); font-family: var(--font-mono); font-size: 9px; }
@@ -420,6 +455,8 @@
     .grid-1{ grid-template-columns: 1fr; }
     .sheet{ padding: 2rem 1.4rem; }
     .sheet-head{ flex-direction:column; gap: 1rem; }
+    .name-field{ align-items: flex-start; width: 100%; }
+    .name-field input{ width: 100%; text-align: left; }
   }
 
   @media print{
@@ -429,7 +466,8 @@
     .lined{ background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(1.9em - 1px), #c9b98d calc(1.9em - 1px), #c9b98d 1.9em); }
     .werte-row input{ background:#eadfc4; color:#7a2124; }
     .wheel-ring, .wheel-spoke{ stroke:#b7a67a; }
-    .wheel-ringlabel, .wheel-axislabel, .wheel-ringlabel-grid{ fill:#4a3a26; }
+    .wheel-ringlabel, .wheel-axislabel, .wheel-ringlabel-grid, .wheel-sublabel{ fill:#4a3a26; }
+    .wheel-sublabel{ stroke:#f4ecd8; }
     .wheel-plot-fill{ stroke:#7a2124; fill:#7a2124; fill-opacity:0.12; }
     .wheel-plot-dot{ fill:#7a2124; stroke:#f4ecd8; }
     #wheel-reset{ display:none; }
@@ -467,6 +505,10 @@
         <div class="eyebrow">Rondria · Charakterbogen</div>
         <h1 class="sheet-title">Skillsheet</h1>
       </div>
+      <div class="name-field">
+        <label for="feld-name">Name</label>
+        <input type="text" id="feld-name" placeholder="Charaktername" data-field="charName">
+      </div>
     </div>
 
     <div class="stat-strip">
@@ -477,13 +519,14 @@
 
     <div class="werte-block">
       <div class="section-label">Werte</div>
+      <div class="werte-hint">Stufe eintragen: 1 = w4 · 2 = w6 · 3 = w8 · 4 = w10 · 5 = w12 · 6 = w20</div>
       <div class="werte-list werte-list-row">
-        <div class="werte-row"><label>Intelligenz</label><input type="text" data-field="werteIntelligenz"></div>
-        <div class="werte-row"><label>Agilität</label><input type="text" data-field="werteAgilitaet"></div>
-        <div class="werte-row"><label>Körperkraft</label><input type="text" data-field="werteKoerperkraft"></div>
-        <div class="werte-row"><label>Geschicklichkeit</label><input type="text" data-field="werteGeschicklichkeit"></div>
-        <div class="werte-row"><label>Belastbarkeit</label><input type="text" data-field="werteBelastbarkeit"></div>
-        <div class="werte-row"><label>Charme</label><input type="text" data-field="werteCharme"></div>
+        <div class="werte-row"><label>Intelligenz</label><input type="number" min="1" max="6" placeholder="1–6" data-field="werteIntelligenz"></div>
+        <div class="werte-row"><label>Agilität</label><input type="number" min="1" max="6" placeholder="1–6" data-field="werteAgilitaet"></div>
+        <div class="werte-row"><label>Körperkraft</label><input type="number" min="1" max="6" placeholder="1–6" data-field="werteKoerperkraft"></div>
+        <div class="werte-row"><label>Geschicklichkeit</label><input type="number" min="1" max="6" placeholder="1–6" data-field="werteGeschicklichkeit"></div>
+        <div class="werte-row"><label>Belastbarkeit</label><input type="number" min="1" max="6" placeholder="1–6" data-field="werteBelastbarkeit"></div>
+        <div class="werte-row"><label>Charme</label><input type="number" min="1" max="6" placeholder="1–6" data-field="werteCharme"></div>
       </div>
     </div>
 
@@ -549,126 +592,50 @@
 
     <div class="wheel-wrap">
       <div class="section-label" style="text-align:center; border-bottom:none;">Fertigkeitenrad</div>
-      <svg viewBox="0 0 660 660" role="img" aria-label="Zwölfachsiges Fertigkeitenrad mit Würfelstufen von D4 bis D20" id="skillwheel">
+      <svg viewBox="0 0 660 660" role="img" aria-label="Sechseckiges Fertigkeitenrad der sechs Hauptattribute mit Würfelstufen von D4 bis D20" id="skillwheel" style="cursor:pointer;">
         <rect x="0" y="0" width="660" height="660" fill="transparent" id="wheel-hit" style="cursor:pointer;" />
         <g>
-          <polygon points="340.0,300.0 360.0,305.4 374.6,320.0 380.0,340.0 374.6,360.0 360.0,374.6 340.0,380.0 320.0,374.6 305.4,360.0 300.0,340.0 305.4,320.0 320.0,305.4" class="wheel-ring" />
-          <polygon points="340.0,268.0 376.0,277.6 402.4,304.0 412.0,340.0 402.4,376.0 376.0,402.4 340.0,412.0 304.0,402.4 277.6,376.0 268.0,340.0 277.6,304.0 304.0,277.6" class="wheel-ring" />
-          <polygon points="340.0,236.0 392.0,249.9 430.1,288.0 444.0,340.0 430.1,392.0 392.0,430.1 340.0,444.0 288.0,430.1 249.9,392.0 236.0,340.0 249.9,288.0 288.0,249.9" class="wheel-ring" />
-          <polygon points="340.0,204.0 408.0,222.2 457.8,272.0 476.0,340.0 457.8,408.0 408.0,457.8 340.0,476.0 272.0,457.8 222.2,408.0 204.0,340.0 222.2,272.0 272.0,222.2" class="wheel-ring" />
-          <polygon points="340.0,172.0 424.0,194.5 485.5,256.0 508.0,340.0 485.5,424.0 424.0,485.5 340.0,508.0 256.0,485.5 194.5,424.0 172.0,340.0 194.5,256.0 256.0,194.5" class="wheel-ring" />
-          <polygon points="340.0,140.0 440.0,166.8 513.2,240.0 540.0,340.0 513.2,440.0 440.0,513.2 340.0,540.0 240.0,513.2 166.8,440.0 140.0,340.0 166.8,240.0 240.0,166.8" class="wheel-ring" />
+          <polygon points="340.0,300.0 374.6,320.0 374.6,360.0 340.0,380.0 305.4,360.0 305.4,320.0" class="wheel-ring" />
+          <polygon points="340.0,268.0 402.4,304.0 402.4,376.0 340.0,412.0 277.6,376.0 277.6,304.0" class="wheel-ring" />
+          <polygon points="340.0,236.0 430.1,288.0 430.1,392.0 340.0,444.0 249.9,392.0 249.9,288.0" class="wheel-ring" />
+          <polygon points="340.0,204.0 457.8,272.0 457.8,408.0 340.0,476.0 222.2,408.0 222.2,272.0" class="wheel-ring" />
+          <polygon points="340.0,172.0 485.5,256.0 485.5,424.0 340.0,508.0 194.5,424.0 194.5,256.0" class="wheel-ring" />
+          <polygon points="340.0,140.0 513.2,240.0 513.2,440.0 340.0,540.0 166.8,440.0 166.8,240.0" class="wheel-ring" />
         </g>
         <g>
           <line x1="340" y1="340" x2="340.0" y2="140.0" class="wheel-spoke" />
-          <line x1="340" y1="340" x2="440.0" y2="166.8" class="wheel-spoke" />
           <line x1="340" y1="340" x2="513.2" y2="240.0" class="wheel-spoke" />
-          <line x1="340" y1="340" x2="540.0" y2="340.0" class="wheel-spoke" />
           <line x1="340" y1="340" x2="513.2" y2="440.0" class="wheel-spoke" />
-          <line x1="340" y1="340" x2="440.0" y2="513.2" class="wheel-spoke" />
           <line x1="340" y1="340" x2="340.0" y2="540.0" class="wheel-spoke" />
-          <line x1="340" y1="340" x2="240.0" y2="513.2" class="wheel-spoke" />
           <line x1="340" y1="340" x2="166.8" y2="440.0" class="wheel-spoke" />
-          <line x1="340" y1="340" x2="140.0" y2="340.0" class="wheel-spoke" />
           <line x1="340" y1="340" x2="166.8" y2="240.0" class="wheel-spoke" />
-          <line x1="340" y1="340" x2="240.0" y2="166.8" class="wheel-spoke" />
         </g>
         <g id="wheel-plot"></g>
         <g class="wheel-ringlabel-group">
-          <text x="350.4" y="301.4" class="wheel-ringlabel-grid">D4</text>
-          <text x="368.3" y="311.7" class="wheel-ringlabel-grid">D4</text>
-          <text x="378.6" y="329.6" class="wheel-ringlabel-grid">D4</text>
-          <text x="378.6" y="350.4" class="wheel-ringlabel-grid">D4</text>
-          <text x="368.3" y="368.3" class="wheel-ringlabel-grid">D4</text>
-          <text x="350.4" y="378.6" class="wheel-ringlabel-grid">D4</text>
-          <text x="329.6" y="378.6" class="wheel-ringlabel-grid">D4</text>
-          <text x="311.7" y="368.3" class="wheel-ringlabel-grid">D4</text>
-          <text x="301.4" y="350.4" class="wheel-ringlabel-grid">D4</text>
-          <text x="301.4" y="329.6" class="wheel-ringlabel-grid">D4</text>
-          <text x="311.7" y="311.7" class="wheel-ringlabel-grid">D4</text>
-          <text x="329.6" y="301.4" class="wheel-ringlabel-grid">D4</text>
-
-          <text x="358.6" y="270.5" class="wheel-ringlabel-grid">D6</text>
-          <text x="390.9" y="289.1" class="wheel-ringlabel-grid">D6</text>
-          <text x="409.5" y="321.4" class="wheel-ringlabel-grid">D6</text>
-          <text x="409.5" y="358.6" class="wheel-ringlabel-grid">D6</text>
-          <text x="390.9" y="390.9" class="wheel-ringlabel-grid">D6</text>
-          <text x="358.6" y="409.5" class="wheel-ringlabel-grid">D6</text>
-          <text x="321.4" y="409.5" class="wheel-ringlabel-grid">D6</text>
-          <text x="289.1" y="390.9" class="wheel-ringlabel-grid">D6</text>
-          <text x="270.5" y="358.6" class="wheel-ringlabel-grid">D6</text>
-          <text x="270.5" y="321.4" class="wheel-ringlabel-grid">D6</text>
-          <text x="289.1" y="289.1" class="wheel-ringlabel-grid">D6</text>
-          <text x="321.4" y="270.5" class="wheel-ringlabel-grid">D6</text>
-
-          <text x="366.9" y="239.5" class="wheel-ringlabel-grid">D8</text>
-          <text x="413.5" y="266.5" class="wheel-ringlabel-grid">D8</text>
-          <text x="440.5" y="313.1" class="wheel-ringlabel-grid">D8</text>
-          <text x="440.5" y="366.9" class="wheel-ringlabel-grid">D8</text>
-          <text x="413.5" y="413.5" class="wheel-ringlabel-grid">D8</text>
-          <text x="366.9" y="440.5" class="wheel-ringlabel-grid">D8</text>
-          <text x="313.1" y="440.5" class="wheel-ringlabel-grid">D8</text>
-          <text x="266.5" y="413.5" class="wheel-ringlabel-grid">D8</text>
-          <text x="239.5" y="366.9" class="wheel-ringlabel-grid">D8</text>
-          <text x="239.5" y="313.1" class="wheel-ringlabel-grid">D8</text>
-          <text x="266.5" y="266.5" class="wheel-ringlabel-grid">D8</text>
-          <text x="313.1" y="239.5" class="wheel-ringlabel-grid">D8</text>
-
-          <text x="375.2" y="208.6" class="wheel-ringlabel-grid">D10</text>
-          <text x="436.2" y="243.8" class="wheel-ringlabel-grid">D10</text>
-          <text x="471.4" y="304.8" class="wheel-ringlabel-grid">D10</text>
-          <text x="471.4" y="375.2" class="wheel-ringlabel-grid">D10</text>
-          <text x="436.2" y="436.2" class="wheel-ringlabel-grid">D10</text>
-          <text x="375.2" y="471.4" class="wheel-ringlabel-grid">D10</text>
-          <text x="304.8" y="471.4" class="wheel-ringlabel-grid">D10</text>
-          <text x="243.8" y="436.2" class="wheel-ringlabel-grid">D10</text>
-          <text x="208.6" y="375.2" class="wheel-ringlabel-grid">D10</text>
-          <text x="208.6" y="304.8" class="wheel-ringlabel-grid">D10</text>
-          <text x="243.8" y="243.8" class="wheel-ringlabel-grid">D10</text>
-          <text x="304.8" y="208.6" class="wheel-ringlabel-grid">D10</text>
-
-          <text x="383.5" y="177.7" class="wheel-ringlabel-grid">D12</text>
-          <text x="458.8" y="221.2" class="wheel-ringlabel-grid">D12</text>
-          <text x="502.3" y="296.5" class="wheel-ringlabel-grid">D12</text>
-          <text x="502.3" y="383.5" class="wheel-ringlabel-grid">D12</text>
-          <text x="458.8" y="458.8" class="wheel-ringlabel-grid">D12</text>
-          <text x="383.5" y="502.3" class="wheel-ringlabel-grid">D12</text>
-          <text x="296.5" y="502.3" class="wheel-ringlabel-grid">D12</text>
-          <text x="221.2" y="458.8" class="wheel-ringlabel-grid">D12</text>
-          <text x="177.7" y="383.5" class="wheel-ringlabel-grid">D12</text>
-          <text x="177.7" y="296.5" class="wheel-ringlabel-grid">D12</text>
-          <text x="221.2" y="221.2" class="wheel-ringlabel-grid">D12</text>
-          <text x="296.5" y="177.7" class="wheel-ringlabel-grid">D12</text>
-
-          <text x="391.8" y="146.8" class="wheel-ringlabel-grid">D20</text>
-          <text x="481.4" y="198.6" class="wheel-ringlabel-grid">D20</text>
-          <text x="533.2" y="288.2" class="wheel-ringlabel-grid">D20</text>
-          <text x="533.2" y="391.8" class="wheel-ringlabel-grid">D20</text>
-          <text x="481.4" y="481.4" class="wheel-ringlabel-grid">D20</text>
-          <text x="391.8" y="533.2" class="wheel-ringlabel-grid">D20</text>
-          <text x="288.2" y="533.2" class="wheel-ringlabel-grid">D20</text>
-          <text x="198.6" y="481.4" class="wheel-ringlabel-grid">D20</text>
-          <text x="146.8" y="391.8" class="wheel-ringlabel-grid">D20</text>
-          <text x="146.8" y="288.2" class="wheel-ringlabel-grid">D20</text>
-          <text x="198.6" y="198.6" class="wheel-ringlabel-grid">D20</text>
-          <text x="288.2" y="146.8" class="wheel-ringlabel-grid">D20</text>
+          <text x="357.3" y="310.0" class="wheel-ringlabel-grid">D4</text><text x="374.6" y="340.0" class="wheel-ringlabel-grid">D4</text><text x="357.3" y="370.0" class="wheel-ringlabel-grid">D4</text><text x="322.7" y="370.0" class="wheel-ringlabel-grid">D4</text><text x="305.4" y="340.0" class="wheel-ringlabel-grid">D4</text><text x="322.7" y="310.0" class="wheel-ringlabel-grid">D4</text>
+          <text x="371.2" y="286.0" class="wheel-ringlabel-grid">D6</text><text x="402.4" y="340.0" class="wheel-ringlabel-grid">D6</text><text x="371.2" y="394.0" class="wheel-ringlabel-grid">D6</text><text x="308.8" y="394.0" class="wheel-ringlabel-grid">D6</text><text x="277.6" y="340.0" class="wheel-ringlabel-grid">D6</text><text x="308.8" y="286.0" class="wheel-ringlabel-grid">D6</text>
+          <text x="385.0" y="262.0" class="wheel-ringlabel-grid">D8</text><text x="430.1" y="340.0" class="wheel-ringlabel-grid">D8</text><text x="385.0" y="418.0" class="wheel-ringlabel-grid">D8</text><text x="295.0" y="418.0" class="wheel-ringlabel-grid">D8</text><text x="249.9" y="340.0" class="wheel-ringlabel-grid">D8</text><text x="295.0" y="262.0" class="wheel-ringlabel-grid">D8</text>
+          <text x="398.9" y="238.0" class="wheel-ringlabel-grid">D10</text><text x="457.8" y="340.0" class="wheel-ringlabel-grid">D10</text><text x="398.9" y="442.0" class="wheel-ringlabel-grid">D10</text><text x="281.1" y="442.0" class="wheel-ringlabel-grid">D10</text><text x="222.2" y="340.0" class="wheel-ringlabel-grid">D10</text><text x="281.1" y="238.0" class="wheel-ringlabel-grid">D10</text>
+          <text x="412.7" y="214.0" class="wheel-ringlabel-grid">D12</text><text x="485.5" y="340.0" class="wheel-ringlabel-grid">D12</text><text x="412.7" y="466.0" class="wheel-ringlabel-grid">D12</text><text x="267.3" y="466.0" class="wheel-ringlabel-grid">D12</text><text x="194.5" y="340.0" class="wheel-ringlabel-grid">D12</text><text x="267.3" y="214.0" class="wheel-ringlabel-grid">D12</text>
         </g>
         <g>
-          <text x="340.0" y="96.0" class="wheel-axislabel" text-anchor="middle">Intelligenz</text>
-          <text x="462.0" y="128.7" class="wheel-axislabel" text-anchor="start">Aufmerksamkeit</text>
-          <text x="551.3" y="218.0" class="wheel-axislabel" text-anchor="start">Agilität</text>
-          <text x="584.0" y="340.0" class="wheel-axislabel" text-anchor="start">Können</text>
-          <text x="551.3" y="462.0" class="wheel-axislabel" text-anchor="start">Körperkraft</text>
-          <text x="462.0" y="551.3" class="wheel-axislabel" text-anchor="start">Finesse</text>
-          <text x="340.0" y="584.0" class="wheel-axislabel" text-anchor="middle">Geschicklichkeit</text>
-          <text x="218.0" y="551.3" class="wheel-axislabel" text-anchor="end">Koordination</text>
-          <text x="128.7" y="462.0" class="wheel-axislabel" text-anchor="end">Belastbarkeit</text>
-          <text x="96.0" y="340.0" class="wheel-axislabel" text-anchor="end">Seelenruhe</text>
-          <text x="128.7" y="218.0" class="wheel-axislabel" text-anchor="end">Charme</text>
-          <text x="218.0" y="128.7" class="wheel-axislabel" text-anchor="end">Empathie</text>
+          <text x="340.0" y="114.0" class="wheel-axislabel" text-anchor="middle">Intelligenz</text>
+          <text x="535.7" y="227.0" class="wheel-axislabel" text-anchor="start">Agilität</text>
+          <text x="535.7" y="453.0" class="wheel-axislabel" text-anchor="start">Körperkraft</text>
+          <text x="340.0" y="566.0" class="wheel-axislabel" text-anchor="middle">Geschicklichkeit</text>
+          <text x="144.3" y="453.0" class="wheel-axislabel" text-anchor="end">Belastbarkeit</text>
+          <text x="144.3" y="227.0" class="wheel-axislabel" text-anchor="end">Charme</text>
+        </g>
+        <g>
+          <text x="426.6" y="190.0" class="wheel-sublabel" text-anchor="middle">Aufmerksamkeit</text>
+          <text x="513.2" y="340.0" class="wheel-sublabel" text-anchor="middle">Können</text>
+          <text x="426.6" y="490.0" class="wheel-sublabel" text-anchor="middle">Finesse</text>
+          <text x="253.4" y="490.0" class="wheel-sublabel" text-anchor="middle">Koordination</text>
+          <text x="166.8" y="340.0" class="wheel-sublabel" text-anchor="middle">Seelenruhe</text>
+          <text x="253.4" y="190.0" class="wheel-sublabel" text-anchor="middle">Empathie</text>
         </g>
       </svg>
-      <div class="wheel-caption">Klicke auf eine Achse, um die Würfelstufe zu setzen — Klick auf denselben Punkt löscht ihn wieder.</div>
+      <div class="wheel-caption">Die sechs Hauptattribute bilden das Sechseck (werden oben bei „Werte" eingetragen oder direkt hier angeklickt — erneuter Klick löscht den Punkt). Die Nebenattribute liegen auf den Verbindungslinien zwischen ihren beiden Nachbarn.</div>
       <div style="text-align:center; margin-top:0.6rem;">
         <button type="button" id="wheel-reset" class="wheel-reset-btn">Rad zurücksetzen</button>
       </div>
@@ -735,11 +702,11 @@
         if (e.target.closest('[data-field]')) scheduleAutoSave();
       });
 
-      const CANTRIPS = [{"name": "Säureschwall", "effect": "1w6 Säureschaden, ab Stufe 3 2w6"}, {"name": "Klingenschutz", "effect": "Resistenz gg. Schnittschaden"}, {"name": "Eiskalte Hand", "effect": "1w4 Nekroseschaden, kein Heilen"}, {"name": "Tanzende Lichter", "effect": "Bis zu 4 Lichter bewegen"}, {"name": "Druidenwerk", "effect": "Kleine Naturtricks"}, {"name": "Eldritch Blast", "effect": "1w4+4 Kraftschaden, ab Stufe 5 zweiter Strahl"}, {"name": "Feuerpfeil", "effect": "1w4+4 Feuerschaden, ab Stufe 3 2w4+8"}, {"name": "Freunde", "effect": "Vorteil bei Interaktion mit einer Kreatur"}, {"name": "Führung", "effect": "+1w4 auf eine Fertigkeitsprobe"}, {"name": "Licht", "effect": "Objekt leuchtet hell 6 m"}, {"name": "Zauberhand", "effect": "Spektrale Hand manipuliert Objekte"}, {"name": "Reparieren", "effect": "Repariert kleinen Bruch/Riss"}, {"name": "Botschaft", "effect": "Flüstert Nachricht an ein Ziel"}, {"name": "Kleinere Illusion", "effect": "Erzeugt Bild oder Geräusch"}, {"name": "Giftsprühen", "effect": "1w6 Giftschaden"}, {"name": "Gaukelei", "effect": "Diverse magische Kleinigkeiten"}, {"name": "Feuer erzeugen", "effect": "Licht + Wurfangriff 1w8 Feuer"}, {"name": "Eisstrahl", "effect": "1w4 Eisschaden, verlangsamt Gegner"}, {"name": "Widerstand", "effect": "+1w4 auf Rettungswurf"}, {"name": "Heiliges Feuer", "effect": "1w8 Lichtschaden"}, {"name": "Shillelagh", "effect": "Knüppel/Stab wird zur Zauberwaffe, +1w6 mehr Schaden für 2 Runden"}, {"name": "Schockgriff", "effect": "1w6 Blitzschaden, keine Reaktionen"}, {"name": "Dornenpeitsche", "effect": "1w6 Wuchsschaden, zieht 3 m heran"}, {"name": "Wahrer Treffer", "effect": "Vorteil auf nächsten Angriff"}, {"name": "Bösartiger Spott", "effect": "1w4 Psychoschaden (+ Bonus je nach Witzigkeit), Nachteil auf nächsten Angriff"}, {"name": "Fesseln", "effect": "1w4 Schaden bei Treffer, Ziel kann sich einen Zug lang nicht bewegen"}, {"name": "Blitzbund", "effect": "1w4 Blitzschaden, kann im nächsten Zug als Nebenaktion erneut auf dasselbe Ziel gewirkt werden"}, {"name": "Rankenrüstung", "effect": "erhöht die Rüstungsklasse um 2, Rüstung ist leicht brennbar"}, {"name": "Sonnenstrahl", "effect": "1w4 Solarschaden, kann einmal im Zug als Nebenaktion erneut gewirkt werden"}, {"name": "Säurepfeil", "effect": "1w4+4 Säureschaden"}];
+      const CANTRIPS = [{"name": "Blitzbund", "effect": "1w4 Blitzschaden, kann im nächsten Zug als Nebenaktion erneut auf dasselbe Ziel gewirkt werden"}, {"name": "Botschaft", "effect": "Flüstert Nachricht an ein Ziel"}, {"name": "Bösartiger Spott", "effect": "1w4 Psychoschaden (+ Bonus je nach Witzigkeit), Nachteil auf nächsten Angriff"}, {"name": "Dornenpeitsche", "effect": "1w6 Wuchsschaden, zieht 3 m heran"}, {"name": "Druidenwerk", "effect": "Kleine Naturtricks"}, {"name": "Eiskalte Hand", "effect": "1w4 Nekroseschaden, kein Heilen"}, {"name": "Eisstrahl", "effect": "1w4 Eisschaden, verlangsamt Gegner"}, {"name": "Eldritch Blast", "effect": "1w4+4 Kraftschaden, ab Stufe 5 zweiter Strahl"}, {"name": "Fesseln", "effect": "1w4 Schaden bei Treffer, Ziel kann sich einen Zug lang nicht bewegen"}, {"name": "Feuer erzeugen", "effect": "Licht + Wurfangriff 1w8 Feuer"}, {"name": "Feuerpfeil", "effect": "1w4+4 Feuerschaden, ab Stufe 3 2w4+8"}, {"name": "Freunde", "effect": "Vorteil bei Interaktion mit einer Kreatur"}, {"name": "Führung", "effect": "+1w4 auf eine Fertigkeitsprobe"}, {"name": "Gaukelei", "effect": "Diverse magische Kleinigkeiten"}, {"name": "Giftsprühen", "effect": "1w6 Giftschaden"}, {"name": "Heiliges Feuer", "effect": "1w8 Lichtschaden"}, {"name": "Kleinere Illusion", "effect": "Erzeugt Bild oder Geräusch"}, {"name": "Klingenschutz", "effect": "Resistenz gg. Schnittschaden"}, {"name": "Licht", "effect": "Objekt leuchtet hell 6 m"}, {"name": "Rankenrüstung", "effect": "erhöht die Rüstungsklasse um 2, Rüstung ist leicht brennbar"}, {"name": "Reparieren", "effect": "Repariert kleinen Bruch/Riss"}, {"name": "Schockgriff", "effect": "1w6 Blitzschaden, keine Reaktionen"}, {"name": "Shillelagh", "effect": "Knüppel/Stab wird zur Zauberwaffe, +1w6 mehr Schaden für 2 Runden"}, {"name": "Sonnenstrahl", "effect": "1w4 Solarschaden, kann einmal im Zug als Nebenaktion erneut gewirkt werden"}, {"name": "Säurepfeil", "effect": "1w4+4 Säureschaden"}, {"name": "Säureschwall", "effect": "1w6 Säureschaden, ab Stufe 3 2w6"}, {"name": "Tanzende Lichter", "effect": "Bis zu 4 Lichter bewegen"}, {"name": "Wahrer Treffer", "effect": "Vorteil auf nächsten Angriff"}, {"name": "Widerstand", "effect": "+1w4 auf Rettungswurf"}, {"name": "Zauberhand", "effect": "Spektrale Hand manipuliert Objekte"}];
       const SPELLS = [];
-      const FEATS = [{"group": "Körperliche Verbesserungen", "name": "Zäh wie Leder", "effect": "die maximalen TP erhöhen sich einmalig um 2 pro Charakterlevel"}, {"group": "Körperliche Verbesserungen", "name": "Eiserner Wille", "effect": "+1w4 auf alle Rettungswürfe gegen Belastbarkeit"}, {"group": "Körperliche Verbesserungen", "name": "Kampfreflexe", "effect": "+1 auf die Rüstungsklasse, solange keine schwere Rüstung getragen wird"}, {"group": "Körperliche Verbesserungen", "name": "Athletisch", "effect": "Vorteil bei Klettern, Springen und Schwimmen; Bewegungsreichweite +1,5 m"}, {"group": "Körperliche Verbesserungen", "name": "Nachtsicht", "effect": "sieht auch in völliger Dunkelheit in 9 m Radius (Graustufen)"}, {"group": "Körperliche Verbesserungen", "name": "Zähe Konstitution", "effect": "Vorteil bei Rettungswürfen gegen Gift und Krankheit"}, {"group": "Kampf-Fähigkeiten", "name": "Scharfschütze", "effect": "kein Nachteil bei Fernkampfangriffen auf große Distanz oder bei Deckung des Ziels"}, {"group": "Kampf-Fähigkeiten", "name": "Wuchtiger Angriff", "effect": "1x pro Zug: Angriff mit -2 auf den Trefferwurf um +1w6 Schaden verstärken"}, {"group": "Kampf-Fähigkeiten", "name": "Zweitwaffen-Kampf", "effect": "voller Attributsbonus auf Schaden auch mit der Nebenhand"}, {"group": "Kampf-Fähigkeiten", "name": "Gezielter Treffer", "effect": "1x pro Kampf: garantierter Treffer durch Ausnutzen einer Schwachstelle"}, {"group": "Magie & Zaubertricks", "name": "Zauberkundiger", "effect": "ein zusätzlicher Zaubertrick aus der allgemeinen Liste wird erlernt"}, {"group": "Magie & Zaubertricks", "name": "Ritual-Kenner", "effect": "ein bekannter Zauber kann als Ritual gewirkt werden (kein Ressourcenverbrauch, doppelte Wirkzeit)"}, {"group": "Magie & Zaubertricks", "name": "Konzentrationsmeister", "effect": "Vorteil bei Rettungswürfen zum Aufrechterhalten der Konzentration"}, {"group": "Soziales & Wahrnehmung", "name": "Sprachgewandt", "effect": "Vorteil bei Charme-Proben in Verhandlungen; eine zusätzliche Sprache"}, {"group": "Soziales & Wahrnehmung", "name": "Scharfe Sinne", "effect": "Vorteil bei Aufmerksamkeitsproben; kann nicht überrascht werden (außer bewusstlos)"}, {"group": "Soziales & Wahrnehmung", "name": "Menschenkenner", "effect": "erkennt durch kurze Beobachtung, ob eine Kreatur lügt (Vorteil auf die Probe)"}, {"group": "Vielseitigkeit", "name": "Attributstraining", "effect": "ein Attribut steigt um eine Würfelstufe, max. einmal pro Attribut über die Karriere"}, {"group": "Vielseitigkeit", "name": "Zähe Wiederkehr", "effect": "1x/Tag: bei 0 TP bleibt der Charakter stattdessen bei 1 TP"}, {"group": "Vielseitigkeit", "name": "Improvisationstalent", "effect": "1x pro Kampf eine sonst unmögliche Aktion ohne Nachteil ausführen"}, {"group": "Vielseitigkeit", "name": "Anführerqualität", "effect": "1x pro Kampf einem Verbündeten als Reaktion Vorteil auf dessen nächsten Wurf geben"}, {"group": "Roleplay & Hintergrund", "name": "Vertrauter Handwerker", "effect": "beherrscht ein Handwerk auf Expertenniveau; NSCs desselben Gewerbes begegnen ihm mit Respekt"}, {"group": "Roleplay & Hintergrund", "name": "Ruf voraus", "effect": "in einer gewählten Region bekannt — öffnet Türen, zieht aber auch Aufmerksamkeit an"}, {"group": "Roleplay & Hintergrund", "name": "Vertraute Erinnerung", "effect": "erinnert sich an eine prägende Begegnung, die als NSC-Kontakt/Plot-Hook auftaucht"}, {"group": "Roleplay & Hintergrund", "name": "Geheimsprache", "effect": "erlernt eine seltene oder verbotene Sprache/einen Geheimcode nach freier Wahl"}, {"group": "Roleplay & Hintergrund", "name": "Doppelleben", "effect": "pflegt eine zweite Identität; Vorteil beim Vorspielen dieser Person"}, {"group": "Roleplay & Hintergrund", "name": "Gönner", "effect": "eine einflussreiche Figur steht dem Charakter nahe und kann um Gefallen gebeten werden"}, {"group": "Roleplay & Hintergrund", "name": "Erzfeind", "effect": "hat einen persönlichen Widersacher — Story-Element ohne mechanischen Vorteil"}, {"group": "Roleplay & Hintergrund", "name": "Sammlerherz", "effect": "sammelt etwas Bestimmtes; Vorteil bei thematisch passenden Proben"}, {"group": "Roleplay & Hintergrund", "name": "Ehrenkodex", "effect": "folgt einem strikten Verhaltenskodex; 1x pro Sitzung Inspiration von der Spielleitung"}, {"group": "Roleplay & Hintergrund", "name": "Vielgereist", "effect": "kennt sich in einer Kultur/Region besonders gut aus; Vorteil bei sozialen/Wissensproben dort"}];
-      const GEAR = [{"group": "Finesse-Waffen", "name": "Dolch", "effect": "1w4 Schaden — leicht, werfbar"}, {"group": "Finesse-Waffen", "name": "Rapier", "effect": "1w6 Schaden — +1 Initiative"}, {"group": "Finesse-Waffen", "name": "Kurzschwert", "effect": "1w6 Schaden — leicht"}, {"group": "Finesse-Waffen", "name": "Krummsäbel", "effect": "1w8 Schaden — Vorteil gegen mehrere schwache Gegner"}, {"group": "Finesse-Waffen", "name": "Sai", "effect": "1w4 Schaden — kann gegnerische Waffen entwaffnen"}, {"group": "Finesse-Waffen", "name": "Peitsche", "effect": "1w4 Schaden — 4 m Reichweite, kein Nahkampf-Nachteil auf Distanz"}, {"group": "Können-Waffen", "name": "Langschwert", "effect": "1w8 Schaden — vielseitig (1w10 zweihändig)"}, {"group": "Können-Waffen", "name": "Streitaxt", "effect": "1w8 Schaden — vielseitig (1w10 zweihändig)"}, {"group": "Können-Waffen", "name": "Streitkolben", "effect": "1w6 Schaden — +1 Schaden gegen Untote"}, {"group": "Können-Waffen", "name": "Kriegshammer", "effect": "1w10 Schaden — schwer, -1 Initiative"}, {"group": "Können-Waffen", "name": "Großschwert", "effect": "2w6 Schaden — schwer, zweihändig"}, {"group": "Können-Waffen", "name": "Zweihandaxt", "effect": "2w6 Schaden — schwer, zweihändig"}, {"group": "Können-Waffen", "name": "Kriegssense", "effect": "1w10 Schaden — schwer, Reichweite 3 m"}, {"group": "Können-Waffen", "name": "Streitkeule", "effect": "1w6 Schaden — einfach zu erlernen, kein Malus für Ungeübte"}, {"group": "Koordinations-Waffen", "name": "Kurzbogen", "effect": "1w6 Schaden — Reichweite 30 m"}, {"group": "Koordinations-Waffen", "name": "Langbogen", "effect": "1w8 Schaden — Reichweite 45 m, Nachteil ohne Übung"}, {"group": "Koordinations-Waffen", "name": "Leichte Armbrust", "effect": "1w8 Schaden — Nachladen kostet Nebenaktion"}, {"group": "Koordinations-Waffen", "name": "Schwere Armbrust", "effect": "1w10 Schaden — Nachladen kostet volle Aktion, Nachteil im Nahkampf"}, {"group": "Koordinations-Waffen", "name": "Wurfmesser", "effect": "1w4 Schaden — Reichweite 6 m, Set aus 3"}, {"group": "Koordinations-Waffen", "name": "Schleuder", "effect": "1w4 Schaden — Reichweite 12 m, Munition leicht zu finden"}, {"group": "Koordinations-Waffen", "name": "Speer (geworfen)", "effect": "1w6 Schaden — Reichweite 9 m, auch als Nahkampfwaffe nutzbar"}, {"group": "Leichte Rüstung", "name": "Reisekleidung", "effect": "+0 Rüstungsklasse — keine Deckung, rein kosmetisch"}, {"group": "Leichte Rüstung", "name": "Gepolsterte Kleidung", "effect": "+1 Rüstungsklasse — leise, kein Malus beim Schleichen"}, {"group": "Leichte Rüstung", "name": "Lederrüstung", "effect": "+2 Rüstungsklasse — Standard für Waldläufer, Barden, Hexenmeister"}, {"group": "Leichte Rüstung", "name": "Genietete Lederrüstung", "effect": "+3 Rüstungsklasse — etwas schwerer, minimal lauter"}, {"group": "Mittlere Rüstung", "name": "Kettenhemd", "effect": "+4 Rüstungsklasse — Standard für Krieger, Kleriker"}, {"group": "Mittlere Rüstung", "name": "Schuppenpanzer", "effect": "+5 Rüstungsklasse — Nachteil bei Schleichen"}, {"group": "Mittlere Rüstung", "name": "Brustpanzer", "effect": "+5 Rüstungsklasse — kein Nachteil bei Schleichen, aber teuer"}, {"group": "Mittlere Rüstung", "name": "Halbplatte", "effect": "+6 Rüstungsklasse — Nachteil auf Finesse-Waffenproben ohne Training"}, {"group": "Schwere Rüstung", "name": "Kettenpanzer", "effect": "+6 Rüstungsklasse — reduziert Bewegungsreichweite um 1,5 m ohne Training"}, {"group": "Schwere Rüstung", "name": "Plattenpanzer", "effect": "+8 Rüstungsklasse — reduziert Bewegungsreichweite um 3 m ohne Training, laut"}, {"group": "Schwere Rüstung", "name": "Volle Ritterrüstung", "effect": "+9 Rüstungsklasse — nur mit „Novize Schwerer Rüstung“ ohne Nachteil tragbar"}, {"group": "Schilde", "name": "Rundschild", "effect": "+1 Rüstungsklasse — leicht, kein Malus"}, {"group": "Schilde", "name": "Turmschild", "effect": "+2 Rüstungsklasse — Nachteil auf Finesse-Waffenproben mit Nebenhand"}];
-      const BONI_MALI = [{"group": "Körperbau", "name": "Hünenhaft", "effect": "+1w4 auf Körperkraft-Proben und Trageleistung"}, {"group": "Körperbau", "name": "Zierlich", "effect": "-1w4 auf Körperkraft-Proben"}, {"group": "Reaktionsfähigkeit", "name": "Blitzschnell", "effect": "Vorteil auf Initiative"}, {"group": "Reaktionsfähigkeit", "name": "Bedächtig", "effect": "Nachteil auf Initiative"}, {"group": "Kampfstil", "name": "Furchtlos", "effect": "Immunität gegen Angsteffekte"}, {"group": "Kampfstil", "name": "Vorsichtig", "effect": "Nachteil auf Rettungswürfe gegen Angst"}, {"group": "Soziales", "name": "Charismatisch", "effect": "Vorteil bei Überzeugen und Verhandeln"}, {"group": "Soziales", "name": "Furchteinflößend", "effect": "Vorteil bei Einschüchtern, aber Nachteil bei Überzeugen"}, {"group": "Gesundheit", "name": "Zäh", "effect": "+2 maximale TP pro Level"}, {"group": "Gesundheit", "name": "Anfällig", "effect": "-1 maximale TP pro Level"}, {"group": "Sinne", "name": "Adlerauge", "effect": "Vorteil bei Wahrnehmungsproben auf Distanz"}, {"group": "Sinne", "name": "Übervorsichtig", "effect": "Nachteil bei Wahrnehmung auf Distanz"}, {"group": "Magieaffinität", "name": "Arkane Ader", "effect": "+1 auf den Schadenswurf aller Zaubertricks"}, {"group": "Magieaffinität", "name": "Magieresistent", "effect": "Vorteil bei Rettungswürfen gegen gegnerische Zauber, aber -1 auf eigene Zaubertrick-Schäden"}, {"group": "Temperament", "name": "Kühler Kopf", "effect": "Vorteil bei Rettungswürfen gegen Provokation und Wutanfälle-Auslöser"}, {"group": "Temperament", "name": "Hitzkopf", "effect": "bei kritischem Treffer: Belastbarkeits-RW oder nächster Angriff ungestüm (Vorteil Trefferwurf, Nachteil RK)"}, {"group": "Belastbarkeit vs. Beweglichkeit", "name": "Standfest", "effect": "kann nicht durch Stoßeffekte umgeworfen oder verschoben werden"}, {"group": "Belastbarkeit vs. Beweglichkeit", "name": "Flink", "effect": "+1,5 m Bewegungsreichweite, aber doppelte Verschiebung durch Stoßeffekte"}, {"group": "Loyalität & Moral", "name": "Unerschütterliche Treue", "effect": "Vorteil bei RW gegen Bezauberung/mentale Kontrolle, solange Verbündete nahe sind"}, {"group": "Loyalität & Moral", "name": "Eigenbrötler", "effect": "Nachteil bei RW gegen Bezauberung solange Verbündete nahe sind"}, {"group": "Vergangenheit", "name": "Bekannter Held/Heldin", "effect": "Vorteil bei ersten Eindrücken in Zivilisation"}, {"group": "Vergangenheit", "name": "Gesuchte Person", "effect": "Nachteil bei Kontakt mit Autoritäten, aber Vorteil bei Kontakt mit der Unterwelt"}];
+      const FEATS = [{"group": "Körperliche Verbesserungen", "name": "Athletisch", "effect": "Vorteil bei Klettern, Springen und Schwimmen; Bewegungsreichweite +1,5 m"}, {"group": "Körperliche Verbesserungen", "name": "Eiserner Wille", "effect": "+1w4 auf alle Rettungswürfe gegen Belastbarkeit"}, {"group": "Körperliche Verbesserungen", "name": "Kampfreflexe", "effect": "+1 auf die Rüstungsklasse, solange keine schwere Rüstung getragen wird"}, {"group": "Körperliche Verbesserungen", "name": "Nachtsicht", "effect": "sieht auch in völliger Dunkelheit in 9 m Radius (Graustufen)"}, {"group": "Körperliche Verbesserungen", "name": "Zäh wie Leder", "effect": "die maximalen TP erhöhen sich einmalig um 2 pro Charakterlevel"}, {"group": "Körperliche Verbesserungen", "name": "Zähe Konstitution", "effect": "Vorteil bei Rettungswürfen gegen Gift und Krankheit"}, {"group": "Kampf-Fähigkeiten", "name": "Gezielter Treffer", "effect": "1x pro Kampf: garantierter Treffer durch Ausnutzen einer Schwachstelle"}, {"group": "Kampf-Fähigkeiten", "name": "Scharfschütze", "effect": "kein Nachteil bei Fernkampfangriffen auf große Distanz oder bei Deckung des Ziels"}, {"group": "Kampf-Fähigkeiten", "name": "Wuchtiger Angriff", "effect": "1x pro Zug: Angriff mit -2 auf den Trefferwurf um +1w6 Schaden verstärken"}, {"group": "Kampf-Fähigkeiten", "name": "Zweitwaffen-Kampf", "effect": "voller Attributsbonus auf Schaden auch mit der Nebenhand"}, {"group": "Magie & Zaubertricks", "name": "Konzentrationsmeister", "effect": "Vorteil bei Rettungswürfen zum Aufrechterhalten der Konzentration"}, {"group": "Magie & Zaubertricks", "name": "Ritual-Kenner", "effect": "ein bekannter Zauber kann als Ritual gewirkt werden (kein Ressourcenverbrauch, doppelte Wirkzeit)"}, {"group": "Magie & Zaubertricks", "name": "Zauberkundiger", "effect": "ein zusätzlicher Zaubertrick aus der allgemeinen Liste wird erlernt"}, {"group": "Soziales & Wahrnehmung", "name": "Menschenkenner", "effect": "erkennt durch kurze Beobachtung, ob eine Kreatur lügt (Vorteil auf die Probe)"}, {"group": "Soziales & Wahrnehmung", "name": "Scharfe Sinne", "effect": "Vorteil bei Aufmerksamkeitsproben; kann nicht überrascht werden (außer bewusstlos)"}, {"group": "Soziales & Wahrnehmung", "name": "Sprachgewandt", "effect": "Vorteil bei Charme-Proben in Verhandlungen; eine zusätzliche Sprache"}, {"group": "Vielseitigkeit", "name": "Anführerqualität", "effect": "1x pro Kampf einem Verbündeten als Reaktion Vorteil auf dessen nächsten Wurf geben"}, {"group": "Vielseitigkeit", "name": "Attributstraining", "effect": "ein Attribut steigt um eine Würfelstufe, max. einmal pro Attribut über die Karriere"}, {"group": "Vielseitigkeit", "name": "Improvisationstalent", "effect": "1x pro Kampf eine sonst unmögliche Aktion ohne Nachteil ausführen"}, {"group": "Vielseitigkeit", "name": "Zähe Wiederkehr", "effect": "1x/Tag: bei 0 TP bleibt der Charakter stattdessen bei 1 TP"}, {"group": "Roleplay & Hintergrund", "name": "Doppelleben", "effect": "pflegt eine zweite Identität; Vorteil beim Vorspielen dieser Person"}, {"group": "Roleplay & Hintergrund", "name": "Ehrenkodex", "effect": "folgt einem strikten Verhaltenskodex; 1x pro Sitzung Inspiration von der Spielleitung"}, {"group": "Roleplay & Hintergrund", "name": "Erzfeind", "effect": "hat einen persönlichen Widersacher — Story-Element ohne mechanischen Vorteil"}, {"group": "Roleplay & Hintergrund", "name": "Geheimsprache", "effect": "erlernt eine seltene oder verbotene Sprache/einen Geheimcode nach freier Wahl"}, {"group": "Roleplay & Hintergrund", "name": "Gönner", "effect": "eine einflussreiche Figur steht dem Charakter nahe und kann um Gefallen gebeten werden"}, {"group": "Roleplay & Hintergrund", "name": "Ruf voraus", "effect": "in einer gewählten Region bekannt — öffnet Türen, zieht aber auch Aufmerksamkeit an"}, {"group": "Roleplay & Hintergrund", "name": "Sammlerherz", "effect": "sammelt etwas Bestimmtes; Vorteil bei thematisch passenden Proben"}, {"group": "Roleplay & Hintergrund", "name": "Vertraute Erinnerung", "effect": "erinnert sich an eine prägende Begegnung, die als NSC-Kontakt/Plot-Hook auftaucht"}, {"group": "Roleplay & Hintergrund", "name": "Vertrauter Handwerker", "effect": "beherrscht ein Handwerk auf Expertenniveau; NSCs desselben Gewerbes begegnen ihm mit Respekt"}, {"group": "Roleplay & Hintergrund", "name": "Vielgereist", "effect": "kennt sich in einer Kultur/Region besonders gut aus; Vorteil bei sozialen/Wissensproben dort"}];
+      const GEAR = [{"group": "Finesse-Waffen", "name": "Dolch", "effect": "1w4 Schaden — leicht, werfbar"}, {"group": "Finesse-Waffen", "name": "Krummsäbel", "effect": "1w8 Schaden — Vorteil gegen mehrere schwache Gegner"}, {"group": "Finesse-Waffen", "name": "Kurzschwert", "effect": "1w6 Schaden — leicht"}, {"group": "Finesse-Waffen", "name": "Peitsche", "effect": "1w4 Schaden — 4 m Reichweite, kein Nahkampf-Nachteil auf Distanz"}, {"group": "Finesse-Waffen", "name": "Rapier", "effect": "1w6 Schaden — +1 Initiative"}, {"group": "Finesse-Waffen", "name": "Sai", "effect": "1w4 Schaden — kann gegnerische Waffen entwaffnen"}, {"group": "Können-Waffen", "name": "Großschwert", "effect": "2w6 Schaden — schwer, zweihändig"}, {"group": "Können-Waffen", "name": "Kriegshammer", "effect": "1w10 Schaden — schwer, -1 Initiative"}, {"group": "Können-Waffen", "name": "Kriegssense", "effect": "1w10 Schaden — schwer, Reichweite 3 m"}, {"group": "Können-Waffen", "name": "Langschwert", "effect": "1w8 Schaden — vielseitig (1w10 zweihändig)"}, {"group": "Können-Waffen", "name": "Streitaxt", "effect": "1w8 Schaden — vielseitig (1w10 zweihändig)"}, {"group": "Können-Waffen", "name": "Streitkeule", "effect": "1w6 Schaden — einfach zu erlernen, kein Malus für Ungeübte"}, {"group": "Können-Waffen", "name": "Streitkolben", "effect": "1w6 Schaden — +1 Schaden gegen Untote"}, {"group": "Können-Waffen", "name": "Zweihandaxt", "effect": "2w6 Schaden — schwer, zweihändig"}, {"group": "Koordinations-Waffen", "name": "Kurzbogen", "effect": "1w6 Schaden — Reichweite 30 m"}, {"group": "Koordinations-Waffen", "name": "Langbogen", "effect": "1w8 Schaden — Reichweite 45 m, Nachteil ohne Übung"}, {"group": "Koordinations-Waffen", "name": "Leichte Armbrust", "effect": "1w8 Schaden — Nachladen kostet Nebenaktion"}, {"group": "Koordinations-Waffen", "name": "Schleuder", "effect": "1w4 Schaden — Reichweite 12 m, Munition leicht zu finden"}, {"group": "Koordinations-Waffen", "name": "Schwere Armbrust", "effect": "1w10 Schaden — Nachladen kostet volle Aktion, Nachteil im Nahkampf"}, {"group": "Koordinations-Waffen", "name": "Speer (geworfen)", "effect": "1w6 Schaden — Reichweite 9 m, auch als Nahkampfwaffe nutzbar"}, {"group": "Koordinations-Waffen", "name": "Wurfmesser", "effect": "1w4 Schaden — Reichweite 6 m, Set aus 3"}, {"group": "Leichte Rüstung", "name": "Genietete Lederrüstung", "effect": "+3 Rüstungsklasse — etwas schwerer, minimal lauter"}, {"group": "Leichte Rüstung", "name": "Gepolsterte Kleidung", "effect": "+1 Rüstungsklasse — leise, kein Malus beim Schleichen"}, {"group": "Leichte Rüstung", "name": "Lederrüstung", "effect": "+2 Rüstungsklasse — Standard für Waldläufer, Barden, Hexenmeister"}, {"group": "Leichte Rüstung", "name": "Reisekleidung", "effect": "+0 Rüstungsklasse — keine Deckung, rein kosmetisch"}, {"group": "Mittlere Rüstung", "name": "Brustpanzer", "effect": "+5 Rüstungsklasse — kein Nachteil bei Schleichen, aber teuer"}, {"group": "Mittlere Rüstung", "name": "Halbplatte", "effect": "+6 Rüstungsklasse — Nachteil auf Finesse-Waffenproben ohne Training"}, {"group": "Mittlere Rüstung", "name": "Kettenhemd", "effect": "+4 Rüstungsklasse — Standard für Krieger, Kleriker"}, {"group": "Mittlere Rüstung", "name": "Schuppenpanzer", "effect": "+5 Rüstungsklasse — Nachteil bei Schleichen"}, {"group": "Schwere Rüstung", "name": "Kettenpanzer", "effect": "+6 Rüstungsklasse — reduziert Bewegungsreichweite um 1,5 m ohne Training"}, {"group": "Schwere Rüstung", "name": "Plattenpanzer", "effect": "+8 Rüstungsklasse — reduziert Bewegungsreichweite um 3 m ohne Training, laut"}, {"group": "Schwere Rüstung", "name": "Volle Ritterrüstung", "effect": "+9 Rüstungsklasse — nur mit „Novize Schwerer Rüstung“ ohne Nachteil tragbar"}, {"group": "Schilde", "name": "Rundschild", "effect": "+1 Rüstungsklasse — leicht, kein Malus"}, {"group": "Schilde", "name": "Turmschild", "effect": "+2 Rüstungsklasse — Nachteil auf Finesse-Waffenproben mit Nebenhand"}, {"group": "Grundausstattung", "name": "Beutel mit 10 Goldmünzen", "effect": "Grundausstattung"}, {"group": "Grundausstattung", "name": "Fackeln (3 Stück)", "effect": "Grundausstattung"}, {"group": "Grundausstattung", "name": "Feuerstein & Zunder", "effect": "Grundausstattung"}, {"group": "Grundausstattung", "name": "Rationen (3 Tage)", "effect": "Grundausstattung"}, {"group": "Grundausstattung", "name": "Rucksack, Schlafrolle & Wasserschlauch", "effect": "Teil der Grundausstattung jedes Charakters"}, {"group": "Grundausstattung", "name": "Seil (50 m)", "effect": "Grundausstattung"}, {"group": "Zauberer-Ausrüstung", "name": "Amulett/Schmuckstück der Abstammung", "effect": "erinnert an die eigene Erblinie, frei wählbar (z. B. Drachenschuppen-Anhänger)"}, {"group": "Zauberer-Ausrüstung", "name": "Notizbuch (Zauberer)", "effect": "zum Dokumentieren der aufkommenden eigenen Kräfte"}, {"group": "Druiden-Ausrüstung", "name": "Holzstab oder Sichel", "effect": "Druiden-Ausrüstung"}, {"group": "Druiden-Ausrüstung", "name": "Kräuterbeutel", "effect": "mit einfachen Heilkräutern"}, {"group": "Druiden-Ausrüstung", "name": "Leder- oder Rindenrüstung", "effect": "kein Metall — Druiden meiden es traditionell"}, {"group": "Druiden-Ausrüstung", "name": "Naturtotem", "effect": "persönliches Totem — Federn, Zähne oder eine geschnitzte Figur"}, {"group": "Krieger-Ausrüstung", "name": "Erinnerungsstück", "effect": "an die eigene Vergangenheit — Familienwappen, altes Abzeichen oder Brief"}, {"group": "Krieger-Ausrüstung", "name": "Wetzstein", "effect": "zur Waffenpflege"}, {"group": "Barbar-Ausrüstung", "name": "Clan-Zeichen oder Kriegsbemalung", "effect": "Tätowierung oder Talisman"}, {"group": "Barbar-Ausrüstung", "name": "Fellrüstung", "effect": "leicht, oft aus Tierfellen gefertigt"}, {"group": "Barbar-Ausrüstung", "name": "Getrocknetes Fleisch", "effect": "zusätzliche Ration"}, {"group": "Magier-Ausrüstung", "name": "Gelehrtenrobe", "effect": "keine Rüstung"}, {"group": "Magier-Ausrüstung", "name": "Kurzstab", "effect": "Magier-Ausrüstung"}, {"group": "Magier-Ausrüstung", "name": "Schreibzeug", "effect": "Tintenfass, Feder, etwas Ersatzpergament"}, {"group": "Magier-Ausrüstung", "name": "Zauberbuch", "effect": "mit den bereits erlernten Zaubertricks eingetragen"}, {"group": "Mönch-Ausrüstung", "name": "Klosterkleidung", "effect": "keine Rüstung, keine schweren Gegenstände"}, {"group": "Mönch-Ausrüstung", "name": "Leichtes Gepäck", "effect": "Mönche reisen bewusst mit sehr wenig"}, {"group": "Mönch-Ausrüstung", "name": "Meditationsperlen oder Räucherstäbchen", "effect": "Mönch-Ausrüstung"}, {"group": "Mönch-Ausrüstung", "name": "Nunchaku oder Sai", "effect": "optional — waffenloser Kampf ist ohnehin stark"}, {"group": "Waldläufer-Ausrüstung", "name": "Fallen-Set", "effect": "für die Fallenstellen-Fähigkeit"}, {"group": "Waldläufer-Ausrüstung", "name": "Köcher mit 20 Pfeilen", "effect": "zum Kurzbogen"}, {"group": "Waldläufer-Ausrüstung", "name": "Tierhaut oder Pelz als Umhang", "effect": "vom bevorzugten Gelände"}, {"group": "Kleriker-Ausrüstung", "name": "Heiliges Symbol (Kleriker)", "effect": "der eigenen Gottheit"}, {"group": "Kleriker-Ausrüstung", "name": "Ritualbuch", "effect": "kleines Buch mit Gebeten"}, {"group": "Paladin-Ausrüstung", "name": "Eid-Schriftstück oder gravierter Ring", "effect": "Symbol der Verpflichtung"}, {"group": "Paladin-Ausrüstung", "name": "Heiliges Symbol (Paladin)", "effect": "des geschworenen Eids"}, {"group": "Hexenmeister-Ausrüstung", "name": "Pakt-Fokus", "effect": "kleiner Talisman, altes Buch oder Amulett — symbolisiert die Verbindung zum Patron"}, {"group": "Hexenmeister-Ausrüstung", "name": "Seltsames Andenken", "effect": "erinnert an den Moment des Pakts"}, {"group": "Barde-Ausrüstung", "name": "Kuriositäten-Beutel", "effect": "kleine Gegenstände für Straßenauftritte — Karten, Würfel, Schminke"}, {"group": "Barde-Ausrüstung", "name": "Musikinstrument", "effect": "nach Wahl — Laute, Flöte, Trommel"}, {"group": "Werkmeister-Ausrüstung", "name": "Infundierter Gegenstand", "effect": "erste, bereits infundierte Ausrüstung mit Starter-Infusion"}, {"group": "Werkmeister-Ausrüstung", "name": "Schmiedehammer", "effect": "alternative Waffe zur leichten Armbrust"}, {"group": "Werkmeister-Ausrüstung", "name": "Selbstgebaute leichte Metallpanzerung", "effect": "Alternative zur Lederrüstung"}, {"group": "Werkmeister-Ausrüstung", "name": "Tüftlerwerkzeug", "effect": "Werkzeugset für Infusionen und Reparaturen"}];
+      const BONI_MALI = [{"group": "Körperbau", "name": "Hünenhaft", "effect": "+1w4 auf Körperkraft-Proben und Trageleistung"}, {"group": "Körperbau", "name": "Zierlich", "effect": "-1w4 auf Körperkraft-Proben"}, {"group": "Reaktionsfähigkeit", "name": "Bedächtig", "effect": "Nachteil auf Initiative"}, {"group": "Reaktionsfähigkeit", "name": "Blitzschnell", "effect": "Vorteil auf Initiative"}, {"group": "Kampfstil", "name": "Furchtlos", "effect": "Immunität gegen Angsteffekte"}, {"group": "Kampfstil", "name": "Vorsichtig", "effect": "Nachteil auf Rettungswürfe gegen Angst"}, {"group": "Soziales", "name": "Charismatisch", "effect": "Vorteil bei Überzeugen und Verhandeln"}, {"group": "Soziales", "name": "Furchteinflößend", "effect": "Vorteil bei Einschüchtern, aber Nachteil bei Überzeugen"}, {"group": "Gesundheit", "name": "Anfällig", "effect": "-1 maximale TP pro Level"}, {"group": "Gesundheit", "name": "Zäh", "effect": "+2 maximale TP pro Level"}, {"group": "Sinne", "name": "Adlerauge", "effect": "Vorteil bei Wahrnehmungsproben auf Distanz"}, {"group": "Sinne", "name": "Übervorsichtig", "effect": "Nachteil bei Wahrnehmung auf Distanz"}, {"group": "Magieaffinität", "name": "Arkane Ader", "effect": "+1 auf den Schadenswurf aller Zaubertricks"}, {"group": "Magieaffinität", "name": "Magieresistent", "effect": "Vorteil bei Rettungswürfen gegen gegnerische Zauber, aber -1 auf eigene Zaubertrick-Schäden"}, {"group": "Temperament", "name": "Hitzkopf", "effect": "bei kritischem Treffer: Belastbarkeits-RW oder nächster Angriff ungestüm (Vorteil Trefferwurf, Nachteil RK)"}, {"group": "Temperament", "name": "Kühler Kopf", "effect": "Vorteil bei Rettungswürfen gegen Provokation und Wutanfälle-Auslöser"}, {"group": "Belastbarkeit vs. Beweglichkeit", "name": "Flink", "effect": "+1,5 m Bewegungsreichweite, aber doppelte Verschiebung durch Stoßeffekte"}, {"group": "Belastbarkeit vs. Beweglichkeit", "name": "Standfest", "effect": "kann nicht durch Stoßeffekte umgeworfen oder verschoben werden"}, {"group": "Loyalität & Moral", "name": "Eigenbrötler", "effect": "Nachteil bei RW gegen Bezauberung solange Verbündete nahe sind"}, {"group": "Loyalität & Moral", "name": "Unerschütterliche Treue", "effect": "Vorteil bei RW gegen Bezauberung/mentale Kontrolle, solange Verbündete nahe sind"}, {"group": "Vergangenheit", "name": "Bekannter Held/Heldin", "effect": "Vorteil bei ersten Eindrücken in Zivilisation"}, {"group": "Vergangenheit", "name": "Gesuchte Person", "effect": "Nachteil bei Kontakt mit Autoritäten, aber Vorteil bei Kontakt mit der Unterwelt"}];
       const STATUS = [{"name": "Betäubt", "effect": "keine Aktionen/Nebenaktionen; Angriffe gegen die Kreatur haben Vorteil. Endet meist nach 1 Zug oder Belastbarkeits-RW"}, {"name": "Verängstigt", "effect": "kann sich der Angstquelle nicht nähern, Nachteil auf Angriffs-/Fertigkeitsproben solange sichtbar. Seelenruhe-RW schüttelt es ab"}, {"name": "Festgehalten", "effect": "Bewegungsreichweite 0, Angriffe gegen die Kreatur im Vorteil, eigene im Nachteil. Endet durch Geschicklichkeits-/Körperkraft-RW"}, {"name": "Verlangsamt", "effect": "Bewegungsreichweite halbiert, kein Bonus-Angriff möglich. Meist 1–3 Züge begrenzt"}, {"name": "Geblendet", "effect": "kann nichts sehen, automatisches Versagen bei sehkraftabhängigen Proben, Angriffe gegen die Kreatur im Vorteil, eigene im Nachteil"}, {"name": "Vergiftet", "effect": "Nachteil auf Angriffs-/Fertigkeitsproben, oft 1w4 Giftschaden/Zug. Endet durch Belastbarkeits-RW"}, {"name": "Gelähmt", "effect": "kann sich nicht bewegen/handeln, automatisches Versagen bei Geschicklichkeits-/Körperkraft-RW, Nahkampftreffer gelten automatisch als kritisch"}, {"name": "Bewusstlos", "effect": "wie gelähmt, zusätzlich liegend und ohne Umgebungswahrnehmung"}, {"name": "Unsichtbar", "effect": "kann nicht ohne magische Hilfsmittel gesehen werden, Vorteil auf eigene Angriffe, Angriffe gegen die Kreatur im Nachteil"}, {"name": "Bezaubert", "effect": "kann die bezaubernde Kreatur nicht angreifen/schädigen; diese hat Vorteil bei sozialen Proben gegen sie"}, {"name": "Erschöpft (Stufe 1)", "effect": "Nachteil auf alle Proben"}, {"name": "Erschöpft (Stufe 2)", "effect": "Bewegungsreichweite halbiert"}, {"name": "Erschöpft (Stufe 3)", "effect": "Nachteil auf Angriffs- und Rettungswürfe"}, {"name": "Erschöpft (Stufe 4)", "effect": "maximale TP halbiert"}, {"name": "Erschöpft (Stufe 5)", "effect": "Bewegungsreichweite 0. Baut sich durch lange Rast schrittweise ab"}, {"name": "Niedergeschlagen (liegend)", "effect": "Bewegung kostet doppelt, Nahkampf gegen die Kreatur im Vorteil, Fernkampf gegen sie im Nachteil; eigene Angriffe im Nachteil bis Aufstehen"}, {"name": "Entwaffnet", "effect": "Waffe fällt zu Boden, Aufheben kostet Nebenaktion, kein Waffenschaden möglich"}, {"name": "Verstummt", "effect": "kann keine Zaubertricks/Zauber mit verbaler Komponente wirken"}, {"name": "Gefesselt", "effect": "Bewegungsreichweite 0, automatisches Versagen bei Geschicklichkeits-RW, Angriffe gegen die Kreatur im Vorteil"}, {"name": "Provoziert", "effect": "muss die provozierende Kreatur im nächsten Zug angreifen, sofern möglich"}, {"name": "Markiert", "effect": "ein Angreifer hat dauerhaft Vorteil auf Angriffswürfe gegen die markierte Kreatur"}, {"name": "Nekrotisch geschwächt", "effect": "kann nicht geheilt werden, bis der Effekt endet"}, {"name": "Inspiriert", "effect": "kann einmalig einen Bonuswürfel auf einen beliebigen Wurf addieren, bevor der Effekt verfällt"}, {"name": "Brennend (Feuer)", "effect": "1w6 Feuerschaden zu Beginn jedes eigenen Zuges, endet durch Wasser/Löschen. Brennbare Rüstung verlängert um 1 Zug"}, {"name": "Eingefroren (Eis)", "effect": "Bewegung 0, Nachteil auf nächsten RW gegen Wuchtschaden. Endet durch Belastbarkeits-RW oder Feuerschaden"}, {"name": "Durchnässt (Wasser)", "effect": "kein eigener Schaden, aber anfällig für doppelten Elektroschaden. Endet nach 1–2 Zügen oder durch Hitze"}, {"name": "Statisch geladen (Elektro)", "effect": "1 Zug keine Reaktionen möglich; erneuter Elektro-Treffer verursacht +1w4 Bonusschaden. Endet automatisch nach 1 Zug"}, {"name": "Verätzt (Säure)", "effect": "Rüstungsklasse sinkt um 1 für die Dauer, kumulativ bis -3. Reparatur außerhalb des Kampfes setzt zurück"}, {"name": "Versengt (Licht/Heilig)", "effect": "Untote/körperlose Kreaturen haben zusätzlich 1 Zug Nachteil auf alle Proben"}, {"name": "Umschlungen (Natur/Wuchs)", "effect": "wie Festgehalten, endet automatisch nach 2 Zügen; durch Feuerschaden sofort zerstörbar"}, {"name": "Korrumpiert (Nekrose)", "effect": "kein Heilen durch Zauber/Fähigkeiten möglich, meist bis Ende des nächsten Zuges des Ziels"}, {"name": "Verwirrt (Psycho)", "effect": "zu Beginn des Zuges 50% Chance, dass die Aktion gegen ein zufälliges Ziel gerichtet wird. Seelenruhe-RW schüttelt es ab"}];
       
 
@@ -881,15 +848,20 @@
       const CX = 340, CY = 340;
       const ringRadii = [0, 40, 72, 104, 136, 168, 200];
       const ringNames = ['—', 'D4', 'D6', 'D8', 'D10', 'D12', 'D20'];
+      // skillValues hat weiterhin 12 Einträge (gerade Indizes = die sechs Hauptattribute,
+      // ungerade Indizes = die automatisch berechneten Nebenattribute). Geplottet werden
+      // im Sechseck nur noch die sechs Hauptattribute; die Nebenattribute stehen als
+      // Beschriftung auf der Verbindungslinie zwischen ihren beiden Nachbarn.
       const skillValues = new Array(12).fill(0);
+      const PRIMARY_INDICES = [0, 2, 4, 6, 8, 10];
 
       const svg = document.getElementById('skillwheel');
       const hit = document.getElementById('wheel-hit');
       const plot = document.getElementById('wheel-plot');
       const resetBtn = document.getElementById('wheel-reset');
 
-      function axisPoint(i, r){
-        const ang = (-90 + i * 30) * Math.PI / 180;
+      function axisPoint(k, r){
+        const ang = (-90 + k * 60) * Math.PI / 180;
         return [CX + r * Math.cos(ang), CY + r * Math.sin(ang)];
       }
 
@@ -897,17 +869,15 @@
         while (plot.firstChild) plot.removeChild(plot.firstChild);
         scheduleAutoSave();
 
-        const pts = [];
-        for (let i = 0; i < 12; i++){
-          pts.push(axisPoint(i, ringRadii[skillValues[i]]));
-        }
+        const pts = PRIMARY_INDICES.map(i => axisPoint(PRIMARY_INDICES.indexOf(i), ringRadii[skillValues[i]]));
 
         const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
         poly.setAttribute('points', pts.map(p => p.join(',')).join(' '));
         poly.setAttribute('class', 'wheel-plot-fill');
         plot.appendChild(poly);
 
-        pts.forEach((p, i) => {
+        pts.forEach((p, k) => {
+          const i = PRIMARY_INDICES[k];
           if (skillValues[i] > 0){
             const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
             dot.setAttribute('cx', p[0]);
@@ -926,12 +896,13 @@
         return pt.matrixTransform(svg.getScreenCTM().inverse());
       }
 
-      hit.addEventListener('click', (evt) => {
+      svg.addEventListener('click', (evt) => {
         const loc = svgPoint(evt);
         const dx = loc.x - CX, dy = loc.y - CY;
         const angle = Math.atan2(dy, dx) * 180 / Math.PI;
         const axisAngle = (angle + 90 + 360) % 360;
-        const axisIndex = Math.round(axisAngle / 30) % 12;
+        const k = Math.round(axisAngle / 60) % 6;
+        const axisIndex = PRIMARY_INDICES[k];
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         let nearest = 0, best = Infinity;
@@ -950,6 +921,48 @@
       });
 
       render();
+
+      // ---------- Werte → Fertigkeitenrad automatisch ----------
+      function parseDieIndex(text){
+        if (!text) return 0;
+        const n = parseInt(String(text).trim(), 10);
+        if (isNaN(n)) return 0;
+        return Math.min(6, Math.max(0, n));
+      }
+      function derivedIndex(a, b){
+        return (a > 0 && b > 0) ? Math.round((a + b) / 2) : 0;
+      }
+      const werteInputs = {
+        int: document.querySelector('[data-field="werteIntelligenz"]'),
+        agi: document.querySelector('[data-field="werteAgilitaet"]'),
+        kk:  document.querySelector('[data-field="werteKoerperkraft"]'),
+        ges: document.querySelector('[data-field="werteGeschicklichkeit"]'),
+        bel: document.querySelector('[data-field="werteBelastbarkeit"]'),
+        cha: document.querySelector('[data-field="werteCharme"]'),
+      };
+      function updateWheelFromWerte(){
+        const v = {};
+        Object.keys(werteInputs).forEach(k => { v[k] = parseDieIndex(werteInputs[k].value); });
+
+        skillValues[0]  = v.int;                       // Intelligenz
+        skillValues[1]  = derivedIndex(v.int, v.agi);   // Aufmerksamkeit
+        skillValues[2]  = v.agi;                        // Agilität
+        skillValues[3]  = derivedIndex(v.agi, v.kk);    // Können
+        skillValues[4]  = v.kk;                         // Körperkraft
+        skillValues[5]  = derivedIndex(v.kk, v.ges);    // Finesse
+        skillValues[6]  = v.ges;                        // Geschicklichkeit
+        skillValues[7]  = derivedIndex(v.ges, v.bel);   // Koordination
+        skillValues[8]  = v.bel;                        // Belastbarkeit
+        skillValues[9]  = derivedIndex(v.bel, v.cha);   // Seelenruhe
+        skillValues[10] = v.cha;                        // Charme
+        skillValues[11] = derivedIndex(v.cha, v.int);   // Empathie
+
+        render();
+      }
+      Object.values(werteInputs).forEach(input => {
+        input.addEventListener('input', updateWheelFromWerte);
+        input.addEventListener('change', updateWheelFromWerte);
+      });
 
       // ---------- Speichern / Laden ----------
       const saveBtn = document.getElementById('btn-save');
@@ -1019,6 +1032,7 @@
           try{
             const data = JSON.parse(e.target.result);
             applyData(data);
+            updateWheelFromWerte();
             autoSave();
             showStatus('Charakter geladen.');
           }catch(err){
@@ -1037,6 +1051,7 @@
       });
 
       autoLoadOnStart();
+      updateWheelFromWerte();
     })();
   </script>
 
