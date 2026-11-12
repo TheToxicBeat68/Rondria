@@ -1020,7 +1020,7 @@ const Sound = (function(){
         const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
         ctx = new AC();
         const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -16; comp.knee.value = 10; comp.ratio.value = 6; comp.attack.value = 0.002; comp.release.value = 0.14;
-        out = ctx.createGain(); out.gain.value = 0.9; out.connect(comp); const master = ctx.createGain(); master.gain.value = 0.5; comp.connect(master); master.connect(ctx.destination);
+        out = ctx.createGain(); out.gain.value = 0.9; out.connect(comp); const master = ctx.createGain(); master.gain.value = 0.397; comp.connect(master); master.connect(ctx.destination);
         const conv = ctx.createConvolver(); conv.buffer = makeIR(); verb = ctx.createGain(); verb.gain.value = 0.22; verb.connect(conv); conv.connect(comp);
         bufs = build();
       }
